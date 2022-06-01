@@ -1,0 +1,28 @@
+{
+  "name": "api-financeiro-gama",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">Aplicação de controle de controle de gastos em casal.js</h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dont-sniff-mimetype": "^1.1.0",
+    "expres": "^0.0.5",
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.16",
+    "sequelize": "^6.19.2",
+    "swagger": "^0.0.1",
+    "swagger-ui-express": "^4.4.0",
+    "yaml": "^2.1.1",
+    "yamljs": "^0.3.0"
+  }
+}

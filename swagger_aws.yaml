@@ -1,0 +1,218 @@
+---
+swagger: "2.0"
+info:
+  description: "API Marlon"
+  version: "1.0.0"
+  title: "api-marlon"          
+host: "localhost:3000"
+basePath: "/api"
+tags:
+- name: "usuario"
+- name: "carteira"
+
+schemes:
+- "https"
+consumes:
+  - "application/json; charset=utf-8"
+produces:
+  - "application/json; charset=utf-8"
+paths:
+
+  /usuario:
+    get:
+      tags:
+      - "usuario"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "nome"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Usuario"
+    post:
+      tags:
+      - "usuario"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "Usuario"
+        required: true
+        schema:
+          $ref: "#/definitions/Usuario"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Usuario"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+            Access-Control-Max-Age:
+              type: "string"
+    put:
+      tags:
+      - "usuario"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Usuario"
+        required: true
+        schema:
+          $ref: "#/definitions/Usuario"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Usuario"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+            Access-Control-Max-Age:
+              type: "string"
+  /usuario/{id}:
+    get:
+      tags:
+      - "usuario"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Usuario"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+            Access-Control-Max-Age:
+              type: "string"
+
+
+  /carteira:
+    get:
+      tags:
+      - "carteira"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "nome"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Carteira"
+
+  /Categoria:
+    get:
+      tags:
+      - "categoria"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "nome"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Categoria"
+
+definitions:
+  Empty:
+    type: "object"
+    title: "Empty Schema"
+  Error:
+    type: "object"
+    title: "Error Schema"
+  Usuario:
+    type: "object"
+    required:
+    - "id"
+    - "nome"
+    - "senha"
+    - "email"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      nome:
+        type: "string"
+      senha:
+        type: "string"
+      email:
+        type: "string"    
+
+  Carteira:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      idcarteira:
+        type: "integer"
+        format: "int64"
+      descricao:
+        type: "string"
+      valor:
+        type: "double"
+      data:
+        type: "date"
+      tipo:
+        type: "string"
+      categoria_idcategoria:
+        type: "integer"
+      compartilha:
+        type: "integer"
+
+  Categoria:
+    type: "object"
+    required:
+    - "id"
+    - "descricao"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      descricao:
+        type: "string"
+        
+
