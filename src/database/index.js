@@ -11,6 +11,7 @@ const Sequelize = require('sequelize');
 
 
 const sequelize = new Sequelize("mydb", "admin", "adminadmin", {
+  connectionLimit: 100,
   host: 'database-1.c4tgykiytsu1.us-east-1.rds.amazonaws.com',
   dialect: 'mysql',
   define: {
