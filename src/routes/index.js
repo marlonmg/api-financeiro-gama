@@ -7,7 +7,7 @@ const authenticationMiddleware = require('../middlewares/authenticationMiddlewar
 
 const routes = express.Router();
 
-const url = "/api/v1/public";
+//const url = "/api/v1/public";
 
 routes.get('/', (req,res)=> {
     if (req.session.login){
