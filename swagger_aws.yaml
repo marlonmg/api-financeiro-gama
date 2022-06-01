@@ -1,9 +1,9 @@
 ---
 swagger: "2.0"
 info:
-  description: "API Marlon"
+  description: "Financeiro Gama"
   version: "1.0.0"
-  title: "api-marlon"          
+  title: "api-financeiro-gama"          
 host: "localhost:3000"
 basePath: "/api"
 tags:
