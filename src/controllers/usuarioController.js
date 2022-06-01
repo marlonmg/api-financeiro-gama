@@ -5,6 +5,7 @@ const sequelize = require('../database');
 
 const usuarioController = {
     listarUsuarios: async (req, res) => {
+        console.log('listarUsuarios...');
         const listaDeUsuarios = await Usuarios.findAll();
         res.json(listaDeUsuarios);
     },
