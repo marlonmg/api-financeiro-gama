@@ -38,6 +38,10 @@ const Carteira = db.define("Carteira", {
             key: "idusuario"
         }
     },
+    status: {
+        type: DataTypes.CHAR
+    },
+   
 },
 {
     tableName: "carteira"

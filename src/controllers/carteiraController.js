@@ -8,9 +8,9 @@ const carteiraController = {
     async saldos (req, res) {
         const { id } = req.params;
         const saldoAtual = 0;
-        const receitas = await sequelize.query("select sum(valor) as despesas from mydb.carteira where idusuario = ? and tipo = 'receita'",{ replacements: [id], type: QueryTypes.SELECT, });
+        const receitas = await sequelize.query("select sum(valor) as receitas from mydb.carteira where idusuario = ? and tipo = 'receita'",{ replacements: [id], type: QueryTypes.SELECT, });
         const  despesas  = await sequelize.query("select sum(valor) as despesas from mydb.carteira where idusuario = ? and tipo = 'despesa'",{ replacements: [id], type: QueryTypes.SELECT, });
-        const despesasCompartilhadas = 0;
+        const despesasCompartilhadas = await sequelize.query("select sum(valor) as despesasCompartilhadas from carteira where idusuario = ? and compartilha  = 1",{ replacements: [id], type: QueryTypes.SELECT, });
 
         const dadosCard = [
             {
@@ -19,7 +19,7 @@ const carteiraController = {
             },
             {
               descricao: "Receitas",
-              valor: receitas,
+              valor: receitas[0].receitas,
             },
             {
               descricao: "Despesas",
@@ -27,7 +27,7 @@ const carteiraController = {
             },
             {
               descricao: "Despesas compartilhadas",
-              valor: despesasCompartilhadas,
+              valor: despesasCompartilhadas[0].despesasCompartilhadas,
             }
         ]
 
@@ -54,8 +54,8 @@ const carteiraController = {
     async cadastrarTransacao (req, res) {
         
         try {
-        const { valor, data, descricao, categoria_idcategoria, tipo, idusuario  } = req.body;
-        if (!valor || !data || !descricao || !categoria_idcategoria || !tipo || !idusuario) {
+        const { valor, data, descricao, categoria_idcategoria, tipo, idusuario, status  } = req.body;
+        if (!valor || !data || !descricao || !categoria_idcategoria || !tipo || !idusuario || status) {
             return res.status(400).json({ mensagem: 'Todos os campos devem ser informados' })
         }
     
@@ -68,7 +68,8 @@ const carteiraController = {
                 data,
                 tipo,
                 categoria_idcategoria,
-                idusuario
+                idusuario,
+                status
             }); 
 
             res.status(201).json(novaTransacao);
@@ -81,7 +82,7 @@ const carteiraController = {
     async  atualizarTransacao(req, res) {
     //    const { usuario } = req;
         const { id } = req.params;
-        const { valor, data, descricao, categoria_idcategoria, tipo } = req.body;
+        const { valor, data, descricao, categoria_idcategoria, tipo, idusuario, status } = req.body;
     
         if (!valor || !data || !descricao || !categoria_idcategoria || !tipo) {
             return res.status(400).json({ mensagem: 'Todos os campos devem ser informados' })
@@ -99,6 +100,8 @@ const carteiraController = {
                 descricao, 
                 categoria_idcategoria, 
                 tipo,
+                idusuario,
+                status,
             },
             {
                 where: {
@@ -121,10 +124,25 @@ const carteiraController = {
             return res.status(400).json({ mensagem: 'Ocorreu um erro desconhecido - ' + error.message })
         }
     },
+
+    async deletarTransacao(req, res){
+        const { id } = req.params;
+        try{
+            await Carteira.destroy({
+                where:{
+                    idcarteira: id,
+                },
+            });
+            res.status(200).json('Excluido com sucesso');
+        }catch (error) {
+            return res.status(400).json({ mensagem: 'Ocorreu um erro desconhecido - ' + error.message })
+        }
+    },
+
     async obterExtratoReceita(req, res) {
         const { id } = req.params;
         const obterTotal = await sequelize.query(
-            "select sum(valor) from mydb.carteira where idusuario = ? and tipo = 'receita'",
+            "select * from mydb.carteira where idusuario = ? and tipo = 'receita'",
              {
                 replacements: [id],
                  type: QueryTypes.SELECT, 
@@ -134,7 +152,7 @@ const carteiraController = {
     async obterExtratoDespesa(req, res) {
         const { id } = req.params;
         const obterTotal = await sequelize.query(
-            "select sum(valor) from mydb.carteira where idusuario = ? and tipo = 'despesa'",
+            "select * from mydb.carteira where idusuario = ? and tipo = 'despesa'",
              {
                 replacements: [id],
                  type: QueryTypes.SELECT, 
