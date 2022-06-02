@@ -41,6 +41,9 @@ const Carteira = db.define("Carteira", {
     status: {
         type: DataTypes.CHAR
     },
+    idusuario_compartilha: {
+        type: DataTypes.INTEGER
+    },
    
 },
 {

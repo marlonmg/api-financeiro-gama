@@ -202,6 +202,12 @@ definitions:
         type: "integer"
       compartilha:
         type: "integer"
+      idusuario:
+        type: "integer"
+      status:
+        type: "char"
+      idusuario_compartilha:
+        type: "integer"
 
   Categoria:
     type: "object"

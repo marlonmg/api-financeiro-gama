@@ -34,11 +34,10 @@ const carteiraController = {
         res.json(dadosCard);
     },
 
-
     listarTransacao: async (req, res) => {
         const { id } = req.params;
         const listaDeTransacao = await sequelize.query(
-            "select a.descricao as produto, a.valor, a.data, a.tipo, b.descricao as categoria from mydb.carteira a left join mydb.categoria b on a.categoria_idcategoria = b.idcategoria where idusuario = ?",
+            "select a.descricao as produto, a.valor, a.data, a.tipo, b.descricao as categoria from carteira a left join categoria b on a.categoria_idcategoria = b.idcategoria where idusuario = ?",
              {
                 replacements: [id],
                  type: QueryTypes.SELECT, 
@@ -54,7 +53,7 @@ const carteiraController = {
     async cadastrarTransacao (req, res) {
         
         try {
-        const { valor, data, descricao, categoria_idcategoria, tipo, idusuario, status  } = req.body;
+        const { valor, data, descricao, categoria_idcategoria, tipo, idusuario, status, idusuario_compartilha  } = req.body;
         if (!valor || !data || !descricao || !categoria_idcategoria || !tipo || !idusuario || status) {
             return res.status(400).json({ mensagem: 'Todos os campos devem ser informados' })
         }
@@ -69,7 +68,8 @@ const carteiraController = {
                 tipo,
                 categoria_idcategoria,
                 idusuario,
-                status
+                status,
+                idusuario_compartilha
             }); 
 
             res.status(201).json(novaTransacao);
@@ -149,15 +149,33 @@ const carteiraController = {
                 });            
         res.json(obterTotal);
     },
+
     async obterExtratoDespesa(req, res) {
         const { id } = req.params;
         const obterTotal = await sequelize.query(
-            "select * from mydb.carteira where idusuario = ? and tipo = 'despesa'",
+            "select * from carteira where idusuario = ? and tipo = 'despesa'",
              {
                 replacements: [id],
                  type: QueryTypes.SELECT, 
                 });            
         res.json(obterTotal);
+    },
+
+    async obterExtratoDespesaCompartilhada(req, res) {
+        const { id, idusuario_compartilha } = req.params;        
+        const obterTotal = await sequelize.query(
+            "select c.status, c.descricao, u.nome  as responsavel, d.descricao as categoria, c.valor from carteira c left join usuario u on c.idusuario  = u.idusuario left join categoria d on c.categoria_idcategoria  = d.idcategoria where compartilha = 1 and c.idusuario = :id or c.idusuario_compartilha = :id or c.idusuario_compartilha = :idusuario_compartilha",
+             {
+                replacements: {id: id, idusuario_compartilha:idusuario_compartilha},                
+                 type: QueryTypes.SELECT, 
+                });            
+        res.json(obterTotal);
+    },
+
+    async saldoMes(req, res){
+        const d = new Date();
+        d.setMonth(4);
+        console.log(d)
     }
 }
 

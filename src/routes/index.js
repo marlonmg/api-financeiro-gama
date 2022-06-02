@@ -34,7 +34,11 @@ routes.put('/carteira/:id/atualizar', carteiraController.atualizarTransacao);
 routes.delete('/carteira/:id/deletar', carteiraController.deletarTransacao);
 routes.get('/carteira/:id/totaldespesa', carteiraController.obterExtratoDespesa);
 routes.get('/carteira/:id/totalreceita', carteiraController.obterExtratoReceita);
-
+routes.get('/carteira/:id/:idusuario_compartilha/totaldespesascompartilhada', carteiraController.obterExtratoDespesaCompartilhada);
 routes.get('/carteira/:id/saldos', carteiraController.saldos);
+
+//rotas para filtros
+routes.get('/carteira/saldomes', carteiraController.saldoMes);
+
 
 module.exports = routes;
