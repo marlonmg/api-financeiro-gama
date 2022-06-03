@@ -29,7 +29,7 @@ routes.delete('/categoria/deletar/:idcategoria', categoriaController.deletarCate
 //rotas para transacao
 routes.get('/carteira/listar/:id', carteiraController.listarTransacao);
 routes.post('/carteira/cadastrar', carteiraController.cadastrarTransacao);
-routes.put('/carteira//atualizar/:id', carteiraController.atualizarTransacao);
+routes.put('/carteira/atualizar/:id', carteiraController.atualizarTransacao);
 routes.delete('/carteira/deletar/:id', carteiraController.deletarTransacao);
 routes.get('/carteira/totaldespesa/:id', carteiraController.obterExtratoDespesa);
 routes.get('/carteira/totalreceita/:id', carteiraController.obterExtratoReceita);
