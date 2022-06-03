@@ -9,34 +9,42 @@ const categoriaController = {
     async cadastrarCategoria (req, res) {
         try {
             const { descricao } = req.body;
-            const novoCategoria = await Categoria.create({
+            await Categoria.create({
                 descricao,
              });
 
-             res.status(201).json(novoCategoria);
+             res.status(201).json("Cadastrado com sucesso");
         }
         catch (error) {
             return res.status(500).json('Ocorreu algum problema' + error);
         }
     },
 
-    async atualizarCategoria (req, res) {
-        const {id} = req.params;
-        const {descricao} = req.body;
+    // async atualizarCategoria (req, res) {
+    //     const {id} = req.params;
+    //     const {descricao} = req.body;
+    //     if (!id) return res.status(400).json('id não enviado');
+    //     const categoriaAtualizado = await Categoria.update({
+    //         descricao,
+    //     },
+    //     {
+    //         where: {
+    //             idcategoria: id,
+    //         }
+    //     });
 
-        if (!id) return res.status(400).json('id não enviado');
+    //     res.json(categoriaAtualizado);
+    // },
 
-        const categoriaAtualizado = await Categoria.update({
-            descricao,
-        },
-        {
+    async deletarCategoria(req, res){
+        const {idcategoria} = req.params;
+        await Categoria.destroy({
             where: {
-                idcategoria: id,
+                idcategoria: idcategoria
             }
-        });
-
-        res.json(categoriaAtualizado);
-    },
+        })
+        res.status(200).json("Deletado com sucesso")
+    }
 };
 
 module.exports = categoriaController

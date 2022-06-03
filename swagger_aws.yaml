@@ -185,7 +185,16 @@ definitions:
   Carteira:
     type: "object"
     required:
-    - "id"
+    - "idcarteira"
+    - "descricao"
+    - "valor"
+    - "data"
+    - "tipo"
+    - "categoria_idcategoria"
+    - "compartilha"
+    - "idusuario"
+    - "status"
+    - "idusuario_compartilha"
     properties:
       idcarteira:
         type: "integer"
@@ -201,6 +210,12 @@ definitions:
       categoria_idcategoria:
         type: "integer"
       compartilha:
+        type: "integer"
+      idusuario:
+        type: "integer"
+      status:
+        type: "char"
+      idusuario_compartilha:
         type: "integer"
 
   Categoria:

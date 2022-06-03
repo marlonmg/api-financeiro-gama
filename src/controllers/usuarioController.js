@@ -58,16 +58,16 @@ const usuarioController = {
             }
         });
 
-        res.json(usuarioAtualizado);
+        res.status(200).json("Usuário atualizado com sucesso");
     },
 
     async deletarUsuario ( req, res) {
          try {
-            const { id } = req.params;
+            const { idusuario } = req.params;
             await Usuarios.destroy ({ 
-            where: { idusuario: id
+            where: { idusuario: idusuario
             }}); 
-            res.json(204);
+            res.status(200).json("Usuário deletado com sucesso");
         } catch (error) {
             return res.status(500).json('Ocorreu algum problema' + error);
         }
