@@ -45,6 +45,12 @@
 
   ```sh
   npm install sequelize-cli -g
+  ``` 
+  
+- MySql
+
+  ```sh
+  npm install mysql2
   ```
 <hr>
 
