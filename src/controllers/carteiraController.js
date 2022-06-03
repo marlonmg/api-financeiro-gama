@@ -2,20 +2,21 @@ const { response } = require('express');
 const { Carteira, Categoria, Usuarios } = require('../models');
 const { QueryTypes } = require('sequelize');
 const sequelize = require('../database'); 
+const moment = require('moment')
 
 const carteiraController = {
 
     async saldos (req, res) {
         const { id } = req.params;
-        const saldoAtual = 0;
+        const saldoAtual = 0
         const receitas = await sequelize.query("select sum(valor) as receitas from mydb.carteira where idusuario = ? and tipo = 'receita'",{ replacements: [id], type: QueryTypes.SELECT, });
         const  despesas  = await sequelize.query("select sum(valor) as despesas from mydb.carteira where idusuario = ? and tipo = 'despesa'",{ replacements: [id], type: QueryTypes.SELECT, });
         const despesasCompartilhadas = await sequelize.query("select sum(valor) as despesasCompartilhadas from carteira where idusuario = ? and compartilha  = 1",{ replacements: [id], type: QueryTypes.SELECT, });
-
+        
         const dadosCard = [
             {
               descricao: "Saldo atual",
-              valor: saldoAtual,
+              valor: saldoAtual
             },
             {
               descricao: "Receitas",
@@ -29,7 +30,7 @@ const carteiraController = {
               descricao: "Despesas compartilhadas",
               valor: despesasCompartilhadas[0].despesasCompartilhadas,
             }
-        ]
+        ]        
 
         res.json(dadosCard);
     },
@@ -61,7 +62,7 @@ const carteiraController = {
         if (tipo !== 'receita' && tipo !== 'despesa') {
             return res.status(400).json({ mensagem: 'O tipo pode ser apenas receita ou despesa' });
         }
-            const novaTransacao = await Carteira.create({
+            await Carteira.create({
                 descricao,
                 valor,
                 data,
@@ -72,7 +73,7 @@ const carteiraController = {
                 idusuario_compartilha
             }); 
 
-            res.status(201).json(novaTransacao);
+            res.status(201).json("Cadastro realizado com sucesso");
         }            
          catch (error) {
             return res.status(500).json('Ocorreu algum problema' + error);
@@ -171,12 +172,6 @@ const carteiraController = {
                 });            
         res.json(obterTotal);
     },
-
-    async saldoMes(req, res){
-        const d = new Date();
-        d.setMonth(4);
-        console.log(d)
-    }
 }
 
 module.exports = carteiraController

@@ -43,8 +43,7 @@ const Carteira = db.define("Carteira", {
     },
     idusuario_compartilha: {
         type: DataTypes.INTEGER
-    },
-   
+    },   
 },
 {
     tableName: "carteira"

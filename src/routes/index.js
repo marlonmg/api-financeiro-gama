@@ -19,26 +19,21 @@ routes.get('/', (req,res)=> {
 routes.get('/usuario', usuarioController.listarUsuarios);
 routes.post('/usuario/cadastrar', usuarioController.cadastrarUsuario);
 routes.put('/usuario/:id', usuarioController.atualizarUsuario);
-routes.delete('/usuario/:id_usuario', usuarioController.deletarUsuario);
+routes.delete('/usuario/:idusuario', usuarioController.deletarUsuario);
 
 //rotas para categoria
 routes.get('/categoria', categoriaController.listarCategoria);
-routes.post('/categoria', categoriaController.cadastrarCategoria);
-routes.put('/categoria/:id', categoriaController.atualizarCategoria);
-//routes.delete('/categoria/:id', categoriaController.deletarCategoria);
+routes.post('/categoria/cadastrar', categoriaController.cadastrarCategoria);
+routes.delete('/categoria/deletar/:idcategoria', categoriaController.deletarCategoria);
 
 //rotas para transacao
-routes.get('/carteira/:id/listar', carteiraController.listarTransacao);
-routes.post('/carteira', carteiraController.cadastrarTransacao);
-routes.put('/carteira/:id/atualizar', carteiraController.atualizarTransacao);
-routes.delete('/carteira/:id/deletar', carteiraController.deletarTransacao);
-routes.get('/carteira/:id/totaldespesa', carteiraController.obterExtratoDespesa);
-routes.get('/carteira/:id/totalreceita', carteiraController.obterExtratoReceita);
-routes.get('/carteira/:id/:idusuario_compartilha/totaldespesascompartilhada', carteiraController.obterExtratoDespesaCompartilhada);
-routes.get('/carteira/:id/saldos', carteiraController.saldos);
-
-//rotas para filtros
-routes.get('/carteira/saldomes', carteiraController.saldoMes);
-
+routes.get('/carteira/listar/:id', carteiraController.listarTransacao);
+routes.post('/carteira/cadastrar', carteiraController.cadastrarTransacao);
+routes.put('/carteira//atualizar/:id', carteiraController.atualizarTransacao);
+routes.delete('/carteira/deletar/:id', carteiraController.deletarTransacao);
+routes.get('/carteira/totaldespesa/:id', carteiraController.obterExtratoDespesa);
+routes.get('/carteira/totalreceita/:id', carteiraController.obterExtratoReceita);
+routes.get('/carteira/totaldespesascompartilhada/:id/:idusuario_compartilha', carteiraController.obterExtratoDespesaCompartilhada);
+routes.get('/carteira/saldos/:id', carteiraController.saldos);
 
 module.exports = routes;
