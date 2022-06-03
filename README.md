@@ -6,10 +6,7 @@
 - [📋 Sobre](#Sobre)
 - [🕹 Tecnologias](#Tecnologias)
 - [🧑🏽‍💻 Iniciando o projeto](#Iniciando)
-- [🧑🏽‍💻 Exemplos de requisições](#Exemplos)
-- [👨🏽‍🔧 Contribuições](#Contribuições)
 - [📝 Licença](#Licença)
-- [🦸 Contatos](#Contatos)
 
 <hr>
 
@@ -57,4 +54,3 @@
 
 Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
-<!-- CONTACT -->
