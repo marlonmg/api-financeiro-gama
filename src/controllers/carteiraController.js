@@ -8,11 +8,14 @@ const carteiraController = {
 
     async saldos (req, res) {
         const { id } = req.params;
-        const saldoAtual = 0
+        
         const receitas = await sequelize.query("select sum(valor) as receitas from mydb.carteira where idusuario = ? and tipo = 'receita'",{ replacements: [id], type: QueryTypes.SELECT, });
         const  despesas  = await sequelize.query("select sum(valor) as despesas from mydb.carteira where idusuario = ? and tipo = 'despesa'",{ replacements: [id], type: QueryTypes.SELECT, });
-        const despesasCompartilhadas = await sequelize.query("select sum(valor) as despesasCompartilhadas from carteira where idusuario = ? and compartilha  = 1",{ replacements: [id], type: QueryTypes.SELECT, });
-        
+        const despesasCompartilhadas = await sequelize.query("select sum(valor) as despesasCompartilhadas from carteira where idusuario = ? and compartilha  = 1",{ replacements: [id], type: QueryTypes.SELECT, });        
+        const rec = receitas[0].receitas
+        const des = despesas[0].despesas
+        const saldoAtual = rec - des
+
         const dadosCard = [
             {
               descricao: "Saldo atual",
