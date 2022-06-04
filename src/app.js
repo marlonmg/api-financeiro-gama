@@ -14,7 +14,7 @@ const app = express();
 const port = process.env.PORT || 3000
 
 //db.hasConection();
-app.use(cors);
+app.use(cors());
 
 app.use(express.json());
 app.use(routes);
