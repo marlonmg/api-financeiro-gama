@@ -4,7 +4,7 @@ const db = require('./database');
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
 swaggerDocument = YAML.load("./swagger_aws.yaml");
-//var cors = require("cors");
+var cors = require("cors");
 //const compression = require('compression')
 
 //const dontSniffMimetype = require("dont-sniff-mimetype");
@@ -14,6 +14,7 @@ const app = express();
 const port = process.env.PORT || 3000
 
 //db.hasConection();
+app.use(cors);
 
 app.use(express.json());
 app.use(routes);
